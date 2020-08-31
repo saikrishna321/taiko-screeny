@@ -1,15 +1,11 @@
 export const ID = 'screeny';
 const { info, success, error } = require('./logger');
 const fs = require('fs-extra');
+let fileDir;
+
 export function init(taiko, eventEmitter) {
   const realFuncs = {};
-  fs.emptyDir('screeny')
-    .then(() => {
-      info('Deleting all files from screeny folder!');
-    })
-    .catch(err => {
-      error(err);
-    });
+  // screenshotDirectory();
   const event = taiko.emitter;
   let description;
   event.on('success', desc => {
@@ -19,12 +15,16 @@ export function init(taiko, eventEmitter) {
     realFuncs[func] = taiko[func];
     if (
       realFuncs[func].constructor.name === 'AsyncFunction' &&
-      !['screenshot', 'closeBrowser'].includes(func)
+      !['screenshot', 'closeBrowser', 'openBrowser'].includes(func)
     ) {
+      if (fileDir === undefined) fileDir = 'screeny';
       module.exports[func] = async function() {
+        if (!(await fs.ensureDir(fileDir))) {
+          await fs.mkdirp(fileDir);
+        }
         await realFuncs[func].apply(this, arguments);
         info(`📸 Taking screenshot for action`, func);
-        const fileName = `screeny/${description.replace(
+        const fileName = `${fileDir}/${description.replace(
           /[^a-zA-Z0-9]/g,
           '_'
         )}.png`;
@@ -35,9 +35,25 @@ export function init(taiko, eventEmitter) {
       };
     }
   }
+
+  function screenshotDirectory() {
+    const folder = fileDir || 'screeny';
+    fs.emptyDir(folder)
+      .then(() => {
+        info('Deleting all files from screeny folder!');
+      })
+      .catch(err => {
+        error(err);
+      });
+    f;
+  }
 }
 
+export function setConfig(name) {
+  fileDir = name;
+}
 module.exports = {
   ID,
-  init
+  init,
+  setConfig
 };
