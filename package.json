@@ -1,0 +1,56 @@
+{
+  "name": "taiko-screeny",
+  "version": "1.0.0",
+  "description": "A tool to capture screenshot for every taiko action",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d lib",
+    "prepublish": "babel src -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saikrishna321/taiko-screeny.git"
+  },
+  "keywords": [
+    "taiko",
+    "android"
+  ],
+  "author": "saikrishna",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saikrishna321/taiko-screeny/issues"
+  },
+  "homepage": "https://github.com/saikrishna321/taiko-screeny#readme",
+  "dependencies": {
+    "chalk": "^4.1.0"
+  },
+  "devDependencies": {
+    "taiko": "^1.0.20",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.3.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-import": "^2.8.0",
+    "husky": "^2.1.0",
+    "prettier": "1.17.0",
+    "jest": "^24.8.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "pretty-quick": "^1.10.0",
+    "lint-staged": "^8.1.4"
+  },
+  "lint-staged": {
+    "**/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write --single-quote",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
