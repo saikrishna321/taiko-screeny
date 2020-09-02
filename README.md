@@ -1,5 +1,13 @@
-# taiko-screeny ![Node.js CI](https://github.com/saikrishna321/taiko-screeny/workflows/Node.js%20CI/badge.svg?branch=master)
-A tool to capture screenshot on taiko actions
+<h1 align="center">
+	<br>
+	<img src="TaikoScreeny.png" alt="TaikoScreeny">
+	<br>
+	<br>
+	<br>
+</h1>
+
+
+![Node.js CI](https://github.com/saikrishna321/taiko-screeny/workflows/Node.js%20CI/badge.svg?branch=master)
 
 
 ## Installation
