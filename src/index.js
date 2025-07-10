@@ -24,10 +24,11 @@ export function init(taiko, eventEmitter) {
         }
         await realFuncs[func].apply(this, arguments);
         info(`📸 Taking screenshot for action`, func);
-        const fileName = `${fileDir}/${description.replace(
-          /[^a-zA-Z0-9]/g,
-          '_'
-        )}.png`;
+        description = description.replace(/[^a-zA-Z0-9]/g, '_');
+        if (description.length > 50) {
+          description = description.substring(0, 50);
+        }
+        const fileName = `${fileDir}/${description}.png`;
         await taiko.screenshot({
           path: fileName
         });
